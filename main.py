@@ -72,7 +72,18 @@ class BreakTimerApp:
         self.duration_entry.pack(side=tk.LEFT, padx=(0, 10))
         
         tk.Button(settings_inner, text="Ustaw", 
-                 command=self.set_duration).pack(side=tk.LEFT)
+                 command=self.set_duration).pack(side=tk.LEFT, padx=(0, 20))
+        
+        # Lista rozwijana ze standardowymi czasami
+        tk.Label(settings_inner, text="Szybkie ustawienia:", 
+                font=("Arial", 10), bg="white").pack(side=tk.LEFT, padx=(0, 10))
+        
+        self.duration_var = tk.StringVar(value="15")
+        self.duration_combo = tk.OptionMenu(settings_inner, self.duration_var, 
+                                          "15", "30", "45", "60",
+                                          command=self.on_duration_change)
+        self.duration_combo.config(font=("Arial", 10), width=8)
+        self.duration_combo.pack(side=tk.LEFT)
         
         # Kontrolki timera
         control_frame = tk.LabelFrame(main_frame, text="Kontrola Timera", 
@@ -185,6 +196,14 @@ class BreakTimerApp:
                 messagebox.showerror("Błąd", "Czas przerwy musi być większy od 0")
         except ValueError:
             messagebox.showerror("Błąd", "Wprowadź prawidłową liczbę minut")
+    
+    def on_duration_change(self, selected_value):
+        """Obsługuje zmianę w liście rozwijanej"""
+        duration = int(selected_value)
+        self.break_duration = duration
+        self.duration_entry.delete(0, tk.END)
+        self.duration_entry.insert(0, str(duration))
+        messagebox.showinfo("Sukces", f"Czas przerwy ustawiony na {duration} minut")
     
     def start_break(self):
         """Uruchamia przerwę"""

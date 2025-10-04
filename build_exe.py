@@ -27,7 +27,7 @@ def build_exe():
         "pyinstaller",
         "--onefile",                    # Jeden plik exe
         "--windowed",                   # Bez konsoli (GUI app)
-        "--name=Godzinka",              # Nazwa pliku exe
+        "--name=Godzinka_v3",           # Nazwa pliku exe
         "--distpath=dist",              # Katalog wyjściowy
         "--workpath=build",             # Katalog tymczasowy
         "--specpath=.",                 # Gdzie umieścić plik spec
@@ -54,14 +54,14 @@ def build_exe():
         print("Budowanie zakończone pomyślnie!")
         
         # Sprawdź czy plik exe został utworzony
-        exe_path = os.path.join("dist", "Godzinka.exe")
+        exe_path = os.path.join("dist", "Godzinka_v3.exe")
         if os.path.exists(exe_path):
             file_size = os.path.getsize(exe_path) / (1024 * 1024)  # MB
             print(f"Plik exe utworzony: {exe_path}")
             print(f"Rozmiar pliku: {file_size:.1f} MB")
             
             # Skopiuj na pulpit (opcjonalne)
-            desktop_path = os.path.join(os.path.expanduser("~"), "Desktop", "Godzinka.exe")
+            desktop_path = os.path.join(os.path.expanduser("~"), "Desktop", "Godzinka_v3.exe")
             try:
                 shutil.copy2(exe_path, desktop_path)
                 print(f"Skopiowano na pulpit: {desktop_path}")
@@ -83,7 +83,7 @@ def clean_build():
     print("Czyszczenie plików tymczasowych...")
     
     dirs_to_clean = ["build", "__pycache__"]
-    files_to_clean = ["Godzinka.spec"]
+    files_to_clean = ["Godzinka_v3.spec"]
     
     for dir_name in dirs_to_clean:
         if os.path.exists(dir_name):
